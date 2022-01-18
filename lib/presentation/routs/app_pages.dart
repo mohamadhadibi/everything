@@ -1,19 +1,21 @@
 import 'package:everything/presentation/cat/detail/cat_detail_bindings.dart';
 import 'package:everything/presentation/cat/detail/cat_detail_page.dart';
+import 'package:everything/presentation/cat/list/cat_list_bindings.dart';
+import 'package:everything/presentation/cat/list/cat_list_page.dart';
 import 'package:get/get.dart';
 
-import '../home.dart';
+import '../home/home.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   static final routes = [
-    /* GetPage(
+     GetPage(
       name: Routes.catList,
       page: () => const CatListPage(),
       binding: CatListBindings(),
       transition: Transition.leftToRight,
-    ),*/
+    ),
     GetPage(
       name: Routes.catDetail,
       page: () => const CatDetailPage(),

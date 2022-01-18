@@ -1,4 +1,4 @@
-import 'package:everything/presentation/home.dart';
+import 'package:everything/presentation/home/home.dart';
 import 'package:everything/presentation/routs/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
