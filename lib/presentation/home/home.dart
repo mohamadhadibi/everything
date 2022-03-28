@@ -22,10 +22,6 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            ElevatedButton(
-                onPressed: () =>
-                    Get.toNamed(Routes.catDetail, parameters: {"id": '1'}),
-                child: const Text("Cat Detail")),
           ],
         ),
       ),

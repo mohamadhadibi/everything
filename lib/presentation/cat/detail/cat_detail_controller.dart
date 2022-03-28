@@ -1,3 +1,4 @@
+import 'package:everything/core/domain/cat/entity/cat.dart';
 import 'package:everything/core/domain/cat/usecase/get_cat_usecase.dart';
 import 'package:get/get.dart';
 
@@ -6,7 +7,17 @@ class CatDetailController extends GetxController {
 
   CatDetailController(this._getCatUseCase);
 
-  getCatDetail(String id) {
-    print("Cat id is:$id");
+  Cat? cat;
+  late int a;
+
+  getCatDetail(String id) async {
+    var result = await _getCatUseCase.call(id);
+    result.fold(
+      (l) => print("Ab Ghateeee"),
+      (cat) {
+        this.cat = cat;
+        update();
+      },
+    );
   }
 }

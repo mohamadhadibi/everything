@@ -10,9 +10,9 @@ class CatDetailPage extends StatefulWidget {
   _CatDetailPageState createState() => _CatDetailPageState();
 }
 
-final controller = Get.put(CatDetailController(Get.find()));
-
 class _CatDetailPageState extends State<CatDetailPage> {
+  final controller = Get.find<CatDetailController>();
+
   @override
   void initState() {
     controller.getCatDetail(Get.parameters['id'] ?? "0");
@@ -21,6 +21,22 @@ class _CatDetailPageState extends State<CatDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: GetBuilder<CatDetailController>(builder: (controller) {
+        return Center(
+          child: Container(
+            color: Colors.orange,
+            height: 100,
+            child: Container(
+              height: 80,
+              margin: const EdgeInsets.all(4),
+              child: Center(
+                child: Text(controller.cat?.race ?? "nulles"),
+              ),
+            ),
+          ),
+        );
+      }),
+    );
   }
 }

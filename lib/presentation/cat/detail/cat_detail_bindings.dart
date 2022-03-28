@@ -10,6 +10,6 @@ class CatDetailBindings extends Bindings {
   dependencies() {
     Get.put<CatRepository>(CatRepositoryImpl());
     Get.put(GetCatUseCase(Get.find()));
-    Get.put(() => CatDetailController(Get.find<GetCatUseCase>()));
+    Get.put(CatDetailController(Get.find<GetCatUseCase>()));
   }
 }

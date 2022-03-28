@@ -1,7 +1,9 @@
-import 'package:everything/core/domain/cat/entity/cat.dart';
-import 'package:everything/presentation/cat/list/cat_list_controller.dart';
+import 'package:everything/presentation/routs/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import '../../../data/cat/model/cat_model.dart';
 
 class CatListPage extends StatefulWidget {
   const CatListPage({Key? key}) : super(key: key);
@@ -11,8 +13,6 @@ class CatListPage extends StatefulWidget {
 }
 
 class _CatListPageState extends State<CatListPage> {
-  final _controller = Get.put(CatListController(Get.find()));
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,18 +20,36 @@ class _CatListPageState extends State<CatListPage> {
         automaticallyImplyLeading: true,
         title: const Text('List of Cats'),
       ),
-      body: GetX<CatListController>(builder: (controller) {
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            Cat item = controller.cats[index];
-            return SizedBox(
-              height: 100,
-              child: Text(item.race),
+      body: ValueListenableBuilder(
+        valueListenable: Hive.box<CatModel>("cats").listenable(),
+        builder: (context, Box<CatModel> box, _) {
+          if (box.values.isEmpty) {
+            return const Center(
+              child: Text("No contacts"),
             );
-          },
-          itemCount: controller.cats.length,
-        );
-      }),
+          }
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              CatModel? item = box.getAt(index);
+              return Card(
+                child: InkWell(
+                  onTap: () => Get.toNamed(Routes.catDetail,
+                      parameters: {"id": item?.id ?? ''}),
+                  child: SizedBox(
+                    height: 100,
+                    child: Center(child: Text('${item?.race}')),
+                  ),
+                ),
+              );
+            },
+            itemCount: box.length,
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed(Routes.catManipulation),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

@@ -4,4 +4,5 @@ abstract class Routes {
   static const String home = '/';
   static const String catList = '/catList';
   static const String catDetail = '/catDetail';
+  static const String catManipulation = '/catManipulation';
 }

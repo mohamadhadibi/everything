@@ -5,6 +5,8 @@ import 'package:everything/core/domain/cat/repository/params.dart';
 import 'package:everything/core/utils/failure.dart';
 import 'package:everything/core/utils/usecase.dart';
 
+import '../../../../data/cat/model/cat_model.dart';
+
 class GetCatsUseCase extends UseCase<List<Cat>, GetCatsParams> {
   final CatRepository _catRepository;
 

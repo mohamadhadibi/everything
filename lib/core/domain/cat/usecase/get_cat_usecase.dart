@@ -10,6 +10,6 @@ class GetCatUseCase extends UseCase<Cat, String> {
   GetCatUseCase(this._catRepository);
   @override
   Future<Either<Failure, Cat>> call(params) async {
-    return await _catRepository.getCatDetail();
+    return await _catRepository.getCatDetail(params);
   }
 }
