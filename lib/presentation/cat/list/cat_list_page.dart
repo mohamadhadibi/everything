@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../core/domain/cat/entity/cat.dart';
 import '../../../data/cat/model/cat_model.dart';
 
 class CatListPage extends StatefulWidget {
@@ -25,21 +26,23 @@ class _CatListPageState extends State<CatListPage> {
         builder: (context, Box<CatModel> box, _) {
           if (box.values.isEmpty) {
             return const Center(
-              child: Text("No contacts"),
+              child: Text("No Cat :)"),
             );
           }
           return ListView.builder(
             itemBuilder: (context, index) {
               CatModel? item = box.getAt(index);
-              return Card(
-                child: InkWell(
-                  onTap: () => Get.toNamed(Routes.catDetail,
-                      parameters: {"id": item?.id ?? ''}),
-                  child: SizedBox(
-                    height: 100,
-                    child: Center(child: Text('${item?.race}')),
-                  ),
-                ),
+              return ListTile(
+                onTap: () => Get.toNamed(Routes.catDetail,
+                    parameters: {"id": item?.id ?? ''}),
+                title: Text('${item?.race}'),
+                leading: IconButton(
+                    onPressed: () => Get.toNamed(Routes.catManipulation,
+                        arguments: {"cat": Cat(id: item!.id, race: item.race)}),
+                    icon: const Icon(Icons.edit)),
+                trailing: IconButton(
+                    onPressed: () => box.deleteAt(index),
+                    icon: const Icon(Icons.delete_forever)),
               );
             },
             itemCount: box.length,
@@ -47,7 +50,7 @@ class _CatListPageState extends State<CatListPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed(Routes.catManipulation),
+        onPressed: () => Get.toNamed(Routes.catManipulation, arguments: {}),
         child: const Icon(Icons.add),
       ),
     );
